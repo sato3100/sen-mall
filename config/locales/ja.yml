@@ -4,6 +4,7 @@ ja:
       user: "ユーザー"
       admin: "管理者"
       item: "商品"
+      category: "カテゴリ名"
 
     attributes:
       review:
@@ -32,6 +33,8 @@ ja:
         stock: "在庫"
         description: "商品説明"
         category_id: "ジャンル"
+      category:
+        category_name: "カテゴリ名"
 
   errors:
     format: "%{attribute}%{message}"
@@ -130,3 +133,9 @@ ja:
             blank: "が入力されていません"
           category_id:
             blank: "が指定されていません"
+
+      category:
+        attributes:
+          name:
+            blank: "が入力されていません"
+            too_long: "は%{count}文字以内で入力してください"

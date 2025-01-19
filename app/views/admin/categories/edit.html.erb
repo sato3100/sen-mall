@@ -1,13 +1,5 @@
 <h2>【管理画面】カテゴリ編集 ID:<%= @category.id %></h2>
 
-<% if flash[:alert].present? %>
-  <div style="color:red;">
-    <% Array(flash[:alert]).each do |err| %>
-      <div><%= err %></div>
-    <% end %>
-  </div>
-<% end %>
-
 <%= form_for @category, url: admin_category_path(@category), method: :patch do |f| %>
   <div>
     <%= f.label :category_name, "カテゴリ名" %><br>
