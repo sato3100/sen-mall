@@ -1,0 +1,41 @@
+<h2>【管理画面】注文編集 </h2>
+
+<p>購入者:
+  <% if @order.user %>
+    <%= link_to @order.user.full_name, admin_user_path(@order.user.id) %>
+  <% else %>
+    (ユーザー不明)
+  <% end %>
+</p>
+<p>合計金額: ¥<%= @order.total_price %></p>
+
+<hr>
+
+<%= form_with url: admin_order_path(@order), method: :patch, local: true do %>
+  <% deliveries = @order.order_items.pluck(:delivery).uniq.sort %>
+  <p>現在の配送状況:
+    <% if deliveries.size == 1 %>
+      <%= OrderItem::DELIVERY_STATUSES[deliveries.first] %>
+    <% else %>
+      複数ステータス ( <%= deliveries.map { |d| OrderItem::DELIVERY_STATUSES[d] }.join(", ") %> )
+    <% end %>
+  </p>
+
+  <% next_candidates = [
+    [ "未配送(0)", 0 ],
+    [ "配送中(1)", 1 ],
+    [ "配送完了(2)", 2 ],
+    [ "返品中(3)", 3 ],
+    [ "返品完了(4)", 4 ],
+    [ "キャンセル(5)", 5 ]
+  ] %>
+
+  <label>変更する配達状況:</label><br>
+
+  <%= select_tag :new_delivery, options_for_select(next_candidates, @unique_delivery) %>
+
+  <br><br>
+  <%= submit_tag "変更", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "注文一覧へ戻る", admin_orders_path, class: "btn btn-secondary" %>

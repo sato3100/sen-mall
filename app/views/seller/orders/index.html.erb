@@ -1,0 +1,52 @@
+<h2>注文管理</h2>
+
+<% if @orders.present? %>
+  <table class="seller-orders-table">
+    <thead>
+      <tr>
+        <th>商品画像</th>
+        <th>商品名</th>
+        <th>合計金額</th>
+        <th>配送状況</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <% seller_item_ids = current_user.items.ids %>
+        <% relevant_items = order.order_items.select { |oi| seller_item_ids.include?(oi.item_id) } %>
+        <tr>
+          <td>
+            <% relevant_items.each do |oi| %>
+              <% if oi.item.image_item.attached? %>
+                <%= image_tag oi.item.image_item, alt: oi.item.name, class: "product-img" %>
+              <% else %>
+                <%= image_tag "no_image.jpg", alt: "画像なし", class: "product-img" %>
+              <% end %>
+              <br>
+            <% end %>
+          </td>
+
+          <td>
+            <% relevant_items.each do |oi| %>
+              <p><%= oi.item.name %></p>
+            <% end %>
+          </td>
+
+          <td><%= order.total_price %></td>
+
+          <td>
+            <%= relevant_items.map { |oi| oi.delivery_text }.join(", ") %>
+          </td>
+
+          <td>
+            <%= link_to "配送状況の編集", edit_seller_order_path(order) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <!-- ここが「存在しない場合」の表示 -->
+  <p>注文された商品はありません。</p>
+<% end %>

@@ -1,0 +1,14 @@
+<h2>【管理画面】問い合わせ(ルーム)編集 (ルームID: <%= @room.id %>)</h2>
+
+<p>件名: <%= @room.subject %></p>
+<%= form_for @room, url: admin_room_path(@room), method: :patch do |f| %>
+  <div>
+    <%= f.label :subject, "件名" %><br>
+    <%= f.text_field :subject %>
+  </div>
+
+  <%= f.submit "更新する", class: "btn btn-primary", style: "margin-top:1em;" %>
+<% end %>
+
+<hr>
+<%= link_to "一覧へ戻る", admin_rooms_path, class: "btn btn-secondary" %>

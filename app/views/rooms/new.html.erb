@@ -1,0 +1,30 @@
+<div class="room-new-container">
+  <div class="room-new-header">問い合わせ作成</div>
+
+  <%= form_with(model: @room, url: rooms_path, local: true, class: "room-new-form") do |f| %>
+
+    <% if @target_admin %>
+      <!-- 管理者宛の場合 -->
+      <p class="room-new-target-user">問い合わせ先: 管理者</p>
+      <%= hidden_field_tag :admin_inquiry, true %>
+
+    <% elsif @target_user %>
+      <!-- ユーザー同士のやり取り -->
+      <p class="room-new-target-user">問い合わせ先: <%= @target_user.business_name %></p>
+      <%= hidden_field_tag :user_id, @target_user.id %>
+
+    <% else %>
+      <!-- どちらも指定されていない場合 -->
+      <p class="room-new-target-user">問い合わせ先が指定されていません</p>
+    <% end %>
+
+    <div class="room-new-form-group">
+      <%= f.label :subject, "件名", class: "room-new-form-label" %>
+      <%= f.text_field :subject %>
+    </div>
+
+    <div class="room-new-form-submit">
+      <%= f.submit "ルーム作成" %>
+    </div>
+  <% end %>
+</div>

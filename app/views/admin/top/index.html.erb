@@ -1,0 +1,15 @@
+<h2>管理者トップ</h2>
+
+<% if current_admin %>
+  <p>ようこそ、<%= current_admin.full_name %> さん (管理者)</p>
+<% else %>
+  <p>ようこそ、ゲストさん (管理者権限なし)</p>
+<% end %>
+
+<ul>
+  <li><%= link_to "注文管理", admin_orders_path %></li>
+  <li><%= link_to "問い合わせ管理,通報確認", admin_rooms_path %></li>
+  <li><%= link_to "アカウント管理", admin_users_path %></li>
+  <li><%= link_to "商品管理", admin_items_path %></li>
+  <li><%= link_to "ジャンル管理", admin_categories_path %></li>
+</ul>

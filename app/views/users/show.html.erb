@@ -1,0 +1,45 @@
+<h2><%= @user.full_name %> さんのマイページ</h2>
+<div class="user-info">
+  <p>フルネーム: <%= @user.full_name %></p>
+  <p>ビジネス名: <%= @user.business_name %></p>
+  <p>Email: <%= @user.email %></p>
+  <p>住所: <%= @user.address %></p>
+  <p>電話番号: <%= @user.phone_number %></p>
+</div>
+
+<div>
+  <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn btn-primary" %>
+</div>
+
+<div>
+  <%= button_to "アカウント削除", user_path(@user),
+                method: :delete,
+                data: { confirm: "本当にアカウントを削除しますか？" },
+                class: "btn btn-danger" %>
+</div>
+
+<hr>
+
+<h3>出品者検索</h3>
+<%= link_to "出品者を検索", search_users_path, class: "btn btn-secondary" %>
+
+<hr>
+
+<h3>お気に入り一覧</h3>
+<%= link_to "お気に入り商品・出品者", user_favorites_path(@user) %>
+
+<hr>
+
+<h3>問い合わせ</h3>
+<%= link_to "問い合わせ一覧", rooms_path %>
+
+<hr>
+
+<h3>レビュー一覧</h3>
+<%= link_to "レビューを表示", user_reviews_path(@user) %>
+
+<% if @user.status != 2 %>
+  <hr>
+  <h3>注文履歴</h3>
+  <%= link_to "注文履歴を表示", orders_path %>
+<% end %>

@@ -1,0 +1,25 @@
+<h2>注文確認</h2>
+
+<% if @cart.nil? || @cart.cart_items.empty? %>
+  <p>カートが空です。</p>
+  <%= link_to "戻る", cart_path, class: "btn btn-secondary" %>
+<% else %>
+  <table>
+    <tr><th>商品名</th><th>数量</th><th>価格</th><th>小計</th></tr>
+    <% @cart.cart_items.each do |ci| %>
+      <tr>
+        <td><%= ci.item.name %></td>
+        <td><%= ci.quantity %></td>
+        <td>¥<%= ci.item.price %></td>
+        <td>¥<%= ci.item.price * ci.quantity %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <p>合計金額: ¥<%= @total_price %></p>
+
+  <%= button_to "注文を確定する", orders_path, method: :post,
+        data: { confirm: "注文を確定しますか？" },
+        class: "btn btn-primary" %>
+  <%= link_to "カートに戻る", cart_path, class: "btn btn-secondary" %>
+<% end %>

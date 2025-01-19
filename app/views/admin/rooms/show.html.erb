@@ -1,0 +1,63 @@
+<h2>【管理画面】問い合わせ詳細 (ルームID: <%= @room.id %>)</h2>
+
+<p>件名: <%= @room.subject.presence || "なし" %></p>
+
+<p>問い合わせている人</p>
+<ul>
+  <% @entries.each do |entry| %>
+    <% if entry.user.present? %>
+      <%= link_to entry.user.full_name, admin_user_path(entry.user.id) %>
+      <% if entry.user.status == 1 %>
+        <p>購入者</p>
+      <% elsif entry.user.status == 2 %>
+        <p>出品者</p>
+      <% else %>
+        <p>ユーザー不明</p>
+      <% end %>
+    <% end %>
+  <% end %>
+</ul>
+
+<hr>
+<h3>メッセージ一覧</h3>
+<div style="border:1px solid #ccc; padding:1em;">
+<% @messages.each do |msg| %>
+  <div style="margin-bottom:1em;">
+
+    <% if msg.admin.present? %>
+      <!-- 管理者メッセージの場合 -->
+      <strong>【管理者】:</strong>
+    <% elsif msg.user.present? %>
+      <!-- ユーザーのメッセージの場合 -->
+      <strong><%= msg.user.full_name %>:</strong>
+    <% else %>
+      <!-- 両方nilなら不明ユーザー -->
+      <strong>(不明ユーザー):</strong>
+    <% end %>
+
+    <div style="white-space: pre-line;">
+      <%= msg.message %>
+    </div>
+  </div>
+<% end %>
+
+</div>
+
+<hr>
+
+<h3>問い合わせ内容送信</h3>
+
+<%= form_with model: Message.new, url: room_messages_path(@room), local: true do |f| %>
+  <%= f.hidden_field :room_id, value: @room.id %>
+  <div>
+    <%= f.label :message, "メッセージ" %>
+    <%= f.text_area :message, rows: 3 %>
+  </div>
+  <%= f.submit "送信" %>
+<% end %>
+
+
+
+<hr>
+<%= link_to "編集(件名など)", edit_admin_room_path(@room), class: "btn btn-primary" %> |
+<%= link_to "一覧へ戻る", admin_rooms_path, class: "btn btn-secondary" %>

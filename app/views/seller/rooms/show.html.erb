@@ -1,0 +1,50 @@
+<div class="room-detail-container">
+  <div class="room-header">
+    <% if @target_user %>
+      <h2 class="room-target-user">問い合わせ相手: <%= @target_user.business_name %></h2>
+    <% end %>
+    <h3 class="room-id">ルームID: <%= @room.id %></h3>
+    <% if @room.subject.present? %>
+      <p class="room-subject">件名: <%= @room.subject %></p>
+    <% end %>
+  </div>
+
+  <div class="room-messages">
+  <% @messages.each do |msg| %>
+    <% if msg.user.present? %>
+      <!-- ユーザーのメッセージ -->
+      <div class="message-item other-message">
+        <strong><%= msg.user.full_name %>:</strong><br>
+        <%= msg.message %>
+      </div>
+    <% elsif msg.admin.present? %>
+      <!-- 管理者のメッセージ -->
+      <div class="message-item other-message">
+        <strong>【管理者】<%= msg.admin.full_name %>:</strong><br>
+        <%= msg.message %>
+      </div>
+    <% else %>
+      <!-- それ以外 (念のため) -->
+      <div class="message-item other-message">
+        <strong>(不明ユーザー):</strong><br>
+        <%= msg.message %>
+      </div>
+    <% end %>
+  <% end %>
+  
+  </div>
+
+  <div class="message-form-container">
+    <%= form_with model: @message, url: room_messages_path(@room),
+                  method: :post, local: true, class: "message-form" do |f| %>
+      <%= f.hidden_field :room_id, value: @room.id %>
+      <div class="message-form-group">
+        <%= f.label :message, "本文", class: "message-form-label" %>
+        <%= f.text_area :message, rows: 3, class: "message-form-textarea" %>
+      </div>
+      <div class="message-form-submit">
+        <%= f.submit "送信", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

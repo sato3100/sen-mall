@@ -1,0 +1,21 @@
+<!-- app/views/admin/rooms/new.html.erb -->
+<h2>【管理画面】新規問い合わせ(ルーム作成)</h2>
+
+<%= form_with model: @room, url: admin_rooms_path, local: true do |f| %>
+  <% if @target_user %>
+    <p>問い合わせ先: <%= @target_user.full_name %> (ID: <%= @target_user.id %>)</p>
+    <%= hidden_field_tag :user_id, @target_user.id %>
+  <% else %>
+    <p>問い合わせ先が指定されていません。<br>
+       先に管理画面のユーザー一覧などから「問い合わせ作成」をクリックしてください。</p>
+  <% end %>
+
+  <div>
+    <%= f.label :subject, "件名" %><br>
+    <%= f.text_field :subject %>
+  </div>
+
+  <div style="margin-top:1em;">
+    <%= f.submit "ルーム作成", class: "btn btn-primary" %>
+  </div>
+<% end %>

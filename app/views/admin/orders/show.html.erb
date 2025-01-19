@@ -1,0 +1,48 @@
+<div class="admin-container">
+  <h2>【管理画面】注文詳細</h2>
+
+  <p>購入者:
+    <% if @order.user.present? %>
+      <%= link_to @order.user.full_name, admin_user_path(@order.user.id) %>
+    <% else %>
+      <p>ユーザー不明</p>
+    <% end %>
+  </p>
+  <p>合計金額: ¥<%= @order.total_price %></p>
+  <p>作成日時: <%= @order.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+
+  <hr>
+
+  <h3>注文商品一覧</h3>
+  <!-- ここで .admin-table クラスを付与 -->
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>商品</th>
+        <th>数量</th>
+        <th>単価</th>
+        <th>配送ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_items.each do |oi| %>
+        <tr>
+          <td>
+            <% if oi.item.present? %>
+              <%= link_to oi.item.name, admin_item_path(oi.item.id) %>
+            <% else %>
+              (商品不明)
+            <% end %>
+          </td>
+          <td><%= oi.quantity %></td>
+          <td>¥<%= oi.price %></td>
+          <td><%= oi.delivery_text %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <hr>
+  <%= link_to "配送状況変更", edit_admin_order_path(@order), class: "btn btn-primary" %>
+  <%= link_to "一覧へ戻る", admin_orders_path, class: "btn btn-secondary" %>
+</div>

@@ -1,0 +1,46 @@
+<h2>注文履歴</h2>
+<% if @orders.empty? %>
+  <p>注文はありません。</p>
+<% else %>
+  <% @orders.each do |order| %>
+    <div style="border:1px solid #ccc; margin-bottom:1em; padding:1em;">
+      <strong>注文番号:</strong> <%= order.id %><br>
+      <strong>合計金額:</strong> ¥<%= order.total_price %><br>
+
+      <!-- ▼ 商品ごとの配達状況を一覧表示 ▼ -->
+      <table>
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>数量</th>
+            <th>配達状況</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% order.order_items.each do |oi| %>
+            <tr>
+              <td><%= oi.item.name %></td>
+              <td><%= oi.quantity %></td>
+              <td><%= oi.delivery_text %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <p>
+        <%= link_to "配送状況", status_order_path(order) %>
+      </p>
+
+      <% if order.order_items.any?{|oi| oi.delivery == 0} %>
+        <%= button_to "キャンセル", cancel_order_path(order),
+                      method: :post,
+                      data: { confirm: "本当にキャンセルしますか？" } %>
+      <% end %>
+      <% if order.order_items.any?{|oi| oi.delivery == 2} %>
+        <%= button_to "返品", return_order_path(order),
+                      method: :post,
+                      data: { confirm: "本当に返品しますか？" } %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

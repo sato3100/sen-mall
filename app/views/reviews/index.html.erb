@@ -1,0 +1,41 @@
+<h2>レビュー一覧</h2>
+
+<% if @reviews.present? %>
+  <% @reviews.each do |review| %>
+    <div style="margin-bottom: 1em; border: 1px solid #ccc; padding: 0.5em;">
+      <strong>Review ID:</strong> <%= review.id %><br>
+      <strong>対象商品:</strong> <%= review.item&.name %><br>
+      <strong>評価:</strong>
+      <!-- 星の表示 (1～5) -->
+      <%= render partial: "shared/star_display", locals: { rating: review.rating } %>
+      <br>
+      <strong>内容:</strong> <%= review.content %><br>
+
+      <% if (current_user && current_user.id == review.user_id) || current_admin %>
+        <% if current_user && current_user.id == review.user_id %>
+          <%= link_to "編集", edit_item_review_path(review.item, review) %> |
+        <% end %>
+        <%= link_to "削除",
+                    item_review_path(review.item, review),
+                    method: :delete,
+                    data: { confirm: "本当に削除しますか？" } %>
+      <% end %>
+
+    </div>
+  <% end %>
+<% else %>
+  <p>レビューはまだありません。</p>
+<% end %>
+
+<hr>
+
+<!-- 「一覧に戻る」リンク -->
+<% if current_admin %>
+  <% if @user.present? %>
+    <%= link_to "詳細へ戻る", admin_user_path(@user.id), class: "btn btn-secondary" %>
+  <% else %>
+    <%= link_to "管理者TOPへ戻る", admin_users_path, class: "btn btn-secondary" %>
+  <% end %>
+<% else %>
+  <%= link_to "マイページへ戻る", user_path(current_user), class: "btn btn-secondary" %>
+<% end %>

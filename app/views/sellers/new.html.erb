@@ -1,0 +1,49 @@
+<div class="seller-register-page">
+  <h2>出品者登録</h2>
+
+  <%= form_for @user, url: seller_path, method: :post, local: true do |f| %>
+    <div class="form-group">
+      <%= f.label :family_name, "性" %>
+      <%= f.text_field :family_name, class: "form-control" %>
+    </div>
+
+    <!-- 名 -->
+    <div class="form-group">
+      <%= f.label :given_name, "名" %>
+      <%= f.text_field :given_name, class: "form-control" %>
+    </div>
+
+    <!-- ビジネス名 -->
+    <div class="form-group">
+      <%= f.label :business_name, "ビジネス名" %>
+      <%= f.text_field :business_name, class: "form-control" %>
+    </div>
+
+    <!-- メールアドレス -->
+    <div class="form-group">
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
+
+    <!-- 住所 -->
+    <div class="form-group">
+      <%= f.label :address, "住所" %>
+      <%= f.text_field :address, class: "form-control" %>
+    </div>
+
+    <!-- 電話番号 -->
+    <div class="form-group">
+      <%= f.label :phone_number, "電話番号" %>
+      <%= f.telephone_field :phone_number, class: "form-control" %>
+    </div>
+
+    <!-- パスワード -->
+    <div class="form-group">
+      <%= f.label :password, "パスワード" %>
+      <%= f.password_field :password, class: "form-control" %>
+    </div>
+
+    <%= f.submit "新規登録", class: "btn btn-primary" %>
+  <% end %>
+    <%= link_to "TOPへ戻る", root_path, class: "btn btn-secondary" %>
+</div>

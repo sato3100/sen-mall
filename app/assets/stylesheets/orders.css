@@ -1,0 +1,25 @@
+.seller-orders-table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 1em auto;
+}
+
+.seller-orders-table th,
+.seller-orders-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.seller-orders-table th {
+  background-color: #f9f9f9;
+  text-align: left;
+}
+
+.pagination-container {
+  text-align: center;
+  margin: 1em 0;
+}
+
+.pagination {
+  display: inline-block;
+}

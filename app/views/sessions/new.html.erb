@@ -1,0 +1,21 @@
+<div class="login-page">
+  <h2>ログイン</h2>
+
+  <%= form_tag session_path, method: :post do %>
+    <div>
+      <label>Email:</label><br>
+      <%= text_field_tag :email, nil, size: 30 %>
+    </div>
+
+    <div>
+      <label>Password:</label><br>
+      <%= password_field_tag :password, nil, size: 30 %>
+    </div>
+
+    <div>
+      <%= submit_tag "ログイン", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <%= link_to "TOPに戻る", root_path, class: "btn btn-secondary" %>
+</div>

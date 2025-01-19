@@ -1,0 +1,29 @@
+.admin-container {
+  h2 {
+    margin: 1em 0;
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+}
+
+.admin-table {
+  width: 80%;
+  border-collapse: collapse; /* セルの余白を重複させない */
+  margin: 1em auto;
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #f9f9f9;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: #fefefe; 
+  }
+}

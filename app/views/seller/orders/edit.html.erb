@@ -1,0 +1,37 @@
+<h1>注文のステータス変更</h1>
+
+<% if @order_items.empty? %>
+  <p>この注文に、あなたの出品商品は含まれていません。</p>
+<% else %>
+  <% @order_items.each do |oi| %>
+    <p>商品名: <%= oi.item.name %></p>
+    <p>現在の配送状況: <%= oi.delivery_text %></p>
+
+    <% next_candidates = case oi.delivery
+      when 0 then [["配送中(1)",1], ["キャンセル(5)",5]]
+      when 1 then [["配送完了(2)",2], ["キャンセル(5)",5]]
+      when 2 then [["返品中(3)",3]]
+      when 3 then [["返品完了(4)",4]]
+      else []
+    end %>
+
+    <% if next_candidates.any? %>
+      <!-- PATCH /seller/orders/:order_id/order_items/:id -->
+      <%= form_with url: seller_order_order_item_path(@order, oi),
+                    method: :patch, local: true do %>
+        <select name="order_item[delivery]">
+          <% next_candidates.each do |label, val| %>
+            <option value="<%= val %>"><%= label %></option>
+          <% end %>
+        </select>
+        <%= submit_tag "変更" %>
+      <% end %>
+    <% else %>
+      <p>これ以上変更できません</p>
+    <% end %>
+
+    <hr>
+  <% end %>
+<% end %>
+
+<%= link_to "注文管理に戻る", seller_orders_path %>

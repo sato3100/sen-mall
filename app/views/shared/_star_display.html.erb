@@ -1,0 +1,4 @@
+<% rating_value = rating.to_i.clamp(1, 5) %>
+<% full_star = "★" %>
+<% empty_star = "☆" %>
+<%= (full_star * rating_value) + (empty_star * (5 - rating_value)) %>

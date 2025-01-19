@@ -22,7 +22,19 @@ gem "puma", "~> 5.0"
 gem "bootsnap", require: false
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem "bcrypt", "~> 3.1.7"
+
+# Use ActiveStorage variant
+gem "image_processing", "~> 1.2"
+gem "mini_magick", "~> 4.8"
+
+gem "email_validator", "~> 1.6"
+gem "kaminari"
+gem "kaminari-i18n"
+
+# Generates ER-diagrams using Graphviz, a visualization library
+gem 'rails-erd'
+
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]

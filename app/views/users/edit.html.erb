@@ -1,0 +1,35 @@
+<h2>プロフィール編集</h2>
+<%= form_for @user do |f| %>
+  <div>
+    <label>性(姓):</label><br>
+    <%= f.text_field :family_name, size: 20 %>
+  </div>
+  <div>
+    <label>名:</label><br>
+    <%= f.text_field :given_name, size: 20 %>
+  </div>
+  <div>
+    <label>ビジネス名:</label><br>
+    <%= f.text_field :business_name, size: 20 %>
+  </div>
+  <div>
+    <label>Email:</label><br>
+    <%= f.email_field :email, size: 30 %>
+  </div>
+  <div>
+    <label>住所:</label><br>
+    <%= f.text_field :address, size: 30 %>
+  </div>
+  <div>
+    <label>電話番号:</label><br>
+    <%= f.text_field :phone_number, size: 20 %>
+  </div>
+  <div>
+    <label>パスワード（変更する場合のみ）</label><br>
+    <%= f.password_field :password, size: 20 %>
+  </div>
+
+  <%= f.submit "送信", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "戻る", user_path(@user), class: "btn btn-secondary" %>

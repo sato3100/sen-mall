@@ -1,0 +1,52 @@
+<div class="admin-container">
+<h2>【管理画面】商品一覧</h2>
+
+<% if @items.any? %>
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>商品名</th>
+        <th>コード</th>
+        <th>在庫</th>
+        <th>価格</th>
+        <th>出品者</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.name %></td>
+          <td><%= item.code %></td>
+          <td><%= item.stock %></td>
+          <td><%= item.price %></td>
+          <td>
+            <% if item.user&.status == 2 %>
+              <%= link_to item.user.business_name, admin_seller_path(item.user.id) %>
+            <% else %>
+              (不明)
+            <% end %>
+          </td>
+          <td>
+            <%= link_to "詳細", admin_item_path(item) %> |
+            <%= link_to "編集", edit_admin_item_path(item) %> |
+            <%= link_to "削除", admin_item_path(item),
+                        method: :delete,
+                        data: { confirm: "本当に削除しますか？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="pagination-container">
+    <%= paginate @items %>
+  </div>
+<% else %>
+  <p>商品が登録されていません。</p>
+<% end %>
+
+<hr>
+<%= link_to "管理トップへ戻る", admin_top_path, class: "btn btn-secondary" %>
+</div>

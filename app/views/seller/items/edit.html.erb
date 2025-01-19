@@ -1,0 +1,51 @@
+<div class="seller-item-form">
+  <h2>出品商品の編集</h2>
+
+  <%= form_for [:seller, @item], url: seller_item_path(@item), method: :patch do |f| %>
+    <div>
+      <%= f.label :name, "商品名:" %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div>
+      <%= f.label :item_picture, "画像:" %>
+      <%= f.file_field :item_picture %>
+    </div>
+
+    <% if @item.image_item.attached? %>
+      <div>
+        <% if @item.image_item.attached? %>
+          <%= image_tag @item.image_item, alt: @item.name, class: "product-img" %>
+        <% end %>
+        <%= f.check_box :remove_picture, id: "remove_picture" %>
+        <%= f.label :remove_picture, "画像を削除", for: "remove_picture" %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :price, "価格" %>
+      <%= f.text_field :price %>
+    </div>
+    <div>
+      <%= f.label :stock, "在庫" %>
+      <%= f.text_field :stock %>
+    </div>
+    <div>
+      <%= f.label :description, "商品説明" %>
+      <%= f.text_area :description %>
+    </div>
+
+    <div class="checkbox-wrapper">
+      <%# 新品チェック %>
+      <%= check_box_tag "item[new]", "1", @item.new, id: "item_new" %>
+      <%= label_tag :item_new, "新品ならチェック" %>
+    </div>
+
+    <div>
+      <%= f.label :category_id, "カテゴリー" %>
+      <%= f.collection_select :category_id, @categories, :id, :category_name, include_blank: true %>
+    </div>
+
+    <%= f.submit "更新", class: "btn-submit" %>
+  <% end %>
+</div>

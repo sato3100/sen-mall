@@ -1,0 +1,44 @@
+<div class="account-register-page">
+  <h2>購入者登録</h2>
+
+  <%= form_for @user, url: accounts_path, method: :post do |f| %>
+    <div>
+      <label>性（15字以内）</label><br>
+      <%= f.text_field :family_name, size: 20 %>
+    </div>
+
+    <div>
+      <label>名（15字以内）</label><br>
+      <%= f.text_field :given_name, size: 20 %>
+    </div>
+
+    <div>
+      <label>ビジネス名（2~15字・重複不可）</label><br>
+      <%= f.text_field :business_name, size: 20 %>
+    </div>
+
+    <div>
+      <label>Email</label><br>
+      <%= f.email_field :email, size: 30 %>
+    </div>
+
+    <div>
+      <label>住所（50字以内）</label><br>
+      <%= f.text_field :address, size: 30 %>
+    </div>
+
+    <div>
+      <label>電話番号（半角数字・ハイフン 8~20字）</label><br>
+      <%= f.text_field :phone_number, size: 20 %>
+    </div>
+
+    <div>
+      <label>パスワード（8~16字、半角英数）</label><br>
+      <%= f.password_field :password, size: 20 %>
+    </div>
+
+    <%= f.submit "新規登録", class: "btn btn-primary" %>
+  <% end %>
+
+  <%= link_to "TOPへ戻る", root_path, class: "btn btn-secondary" %>
+</div>

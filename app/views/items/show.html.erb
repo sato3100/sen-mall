@@ -1,0 +1,116 @@
+<div class="item-detail">
+  <h2><%= @item.name %></h2>
+  <p>カテゴリー: <%= @item.category.category_name %></p>
+  <p>型番: <%= @item.code.presence || "なし" %></p>
+  <p>状態: <%= @item.new == "new_item" ? "新品" : "中古" %></p>
+  <p>価格: ¥<%= @item.price %></p>
+  <p>在庫: <%= @item.stock %></p>
+  <p>説明: <%= @item.description %></p>
+  <p>出品者:
+    <% if @item.user.status == 2 %>
+      <%= link_to @item.user.business_name, seller_show_path(@item.user.id) %>
+    <% else %>
+      <p>出品者情報がありません</p>
+    <% end %>
+  </p>
+
+  <% if @item.image_item.attached? %>
+    <%= image_tag @item.image_item, alt: @item.name, class: "product-img" %>
+  <% else %>
+    <%= image_tag "noimage.jpg", alt: "画像なし", class: "product-img" %>
+  <% end %>
+
+  <% if current_user %>
+    <div>
+      <%= form_with url: cart_items_path, method: :post, local: true do |f| %>
+        <%= hidden_field_tag :item_id, @item.id %>
+        <% if current_user.status == 1 %>
+          <div class="form-group">
+            <%= label_tag :quantity, "数量" %>
+            <%= select_tag :quantity, options_for_select(1..@item.stock), class: "form-control", required: true %>
+          </div>
+          <%= submit_tag "カートに追加", class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+      <%= button_to "お気に入りに追加",
+                    user_favorites_path(current_user, favorite_item_id: @item.id),
+                    method: :post,
+                    class: "btn btn-secondary" %>
+    </div>
+  <% elsif current_admin %>
+  <% else %>
+    <p>お気に入り登録にはログインが必要です。</p>
+    <%= link_to "ログイン", new_session_path, class: "btn btn-primary" %>
+  <% end %>
+
+  <% if current_user && current_user.status == 1 %>
+    <%= button_to "この商品を通報する",
+                  reports_path(item_id: @item.id),
+                  method: :post,
+                  data: { confirm: "本当に通報しますか？" } %>
+  <% end %>
+</div>
+
+<hr>
+
+<h3>レビュー</h3>
+<% if @reviews.present? %>
+  <% @reviews.each do |review| %>
+    <div class="review">
+      <%= render partial: "shared/star_display", locals: { rating: review.rating } %>
+      <p><%= review.content %></p>
+      <p>投稿者: <%= review.user.full_name %></p>
+
+      <!-- 出品者だけが通報できるボタン -->
+      <% if current_user && current_user.status == 2 %>
+        <%= button_to "このレビューを通報する",
+                      reports_path(review_id: review.id),
+                      method: :post,
+                      data: { confirm: "本当に通報しますか？" },
+                      class: "btn btn-warning" %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p>レビューはまだありません。</p>
+<% end %>
+
+<% if current_user %>
+  <%= link_to "レビューを書く", new_item_review_path(@item) %>
+<% elsif current_admin %>
+<% else %>
+  <p>レビューを書くにはログインが必要です。</p>
+  <%= link_to "ログイン", new_session_path %>
+<% end %>
+
+<hr>
+
+<% if current_user %>
+  <% if @item.user != current_user %>
+    <h3>問い合わせ</h3>
+    <% current_entry = Entry.where(user_id: current_user.id) %>
+    <% another_entry = Entry.where(user_id: @item.user.id) %>
+    <% is_room = false %>
+    <% room_id = nil %>
+    <% current_entry.each do |current| %>
+      <% another_entry.each do |another| %>
+        <% if current.room_id == another.room_id %>
+          <% is_room = true %>
+          <% room_id = current.room_id %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if is_room %>
+      <%= link_to 'メッセージへ', room_path(room_id) %>
+    <% else %>
+      <%= link_to "問い合わせを作成",
+                  new_room_path(user_id: @item.user.id),
+                  class: "btn btn-info",
+                  data: { confirm: "この出品者に問い合わせフォームを開きますか？" } %>
+    <% end %>
+  <% end %>
+<% elsif current_admin %>
+<% else %>
+  <p>問い合わせにはログインが必要です。</p>
+  <%= link_to "ログイン", new_session_path %>
+<% end %>

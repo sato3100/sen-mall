@@ -1,0 +1,37 @@
+<h2>配送状況</h2>
+
+<p>注文番号: <%= @order.id %></p>
+<p>合計金額: ¥<%= @order.total_price %></p>
+
+<table>
+  <tr>
+    <th>商品名</th>
+    <th>数量</th>
+    <th>配達状況</th>
+  </tr>
+  <% @order.order_items.each do |oi| %>
+    <tr>
+      <td><%= oi.item.name %></td>
+      <td><%= oi.quantity %></td>
+      <td><%= oi.delivery_text %></td>
+    </tr>
+  <% end %>
+</table>
+
+<div>
+  <% if @order.order_items.any? { |oi| oi.delivery == 0 } %>
+    <%= button_to "キャンセル", cancel_order_path(@order),
+                  method: :post,
+                  data: { confirm: "本当にキャンセルしますか？" },
+                  class: "btn btn-danger" %>
+  <% end %>
+
+  <% if @order.order_items.any? { |oi| oi.delivery == 2 } %>
+    <%= button_to "返品", return_order_path(@order),
+                  method: :post,
+                  data: { confirm: "本当に返品しますか？" },
+                  class: "btn btn-warning" %>
+  <% end %>
+</div>
+
+<%= link_to "注文履歴に戻る", orders_path, class: "btn btn-secondary" %>

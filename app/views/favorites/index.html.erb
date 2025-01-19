@@ -1,0 +1,23 @@
+<h2><%= @user.full_name %> さんのお気に入り</h2>
+
+<h3>お気に入り商品</h3>
+<ul>
+  <% @favorite_items.each do |favorite_item| %>
+    <li>
+      <% item = favorite_item.item %>
+      <%= link_to item.name, item_path(item) %>
+      <%= link_to "お気に入り解除", user_favorite_path(@user, favorite_item), method: :delete, data: { confirm: '商品のお気に入りを解除しますか？' } %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>お気に入り出品者</h3>
+<ul>
+  <% @favorite_users_records.each do |favorite_record| %>
+    <li>
+      <% favorited_user = favorite_record.favorited_user %>
+      <%= link_to favorited_user.full_name, seller_show_path(favorited_user) %>
+      <%= link_to "お気に入り解除", user_favorite_path(@user, favorite_record), method: :delete, data: { confirm: '出品者のお気に入りを解除しますか？' } %>
+    </li>
+  <% end %>
+</ul>

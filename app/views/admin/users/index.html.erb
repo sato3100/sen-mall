@@ -1,0 +1,79 @@
+<div class="admin-container">
+  <h2>アカウント管理（管理者画面）</h2>
+
+  <div class="search-form-container">
+    <%= form_with(url: admin_users_path, method: :get, local: true, class: "search-form") do %>
+      <div class="search-row">
+        <label>キーワード（電話/メール/姓/名）</label>
+        <%= text_field_tag "search[q]", params.dig(:search, :q),
+                          placeholder: "キーワードを入力" %>
+      </div>
+
+      <div class="search-submit">
+        <%= submit_tag "検索", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= link_to "管理者を追加", new_admin_user_path, class: "btn btn-primary" %>
+
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>種別</th>
+        <th>メール</th>
+        <th>電話</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @accounts.each do |acc| %>
+        <% if acc.is_a?(User) %>
+          <tr>
+            <td><%= acc.id %></td>
+            <td><%= acc.full_name %></td>
+            <td>
+              <% if acc.status == 1 %>購入者
+              <% elsif acc.status == 2 %>出品者
+              <% else %>
+                不明(status=<%= acc.status %>)
+              <% end %>
+            </td>
+            <td><%= acc.email %></td>
+            <td><%= acc.phone_number %></td>
+            <td>
+              <%= link_to "詳細", admin_user_path(acc, type: 'user') %>
+              <%= link_to "編集", edit_admin_user_path(acc, type: 'user') %>
+              <%= link_to "削除", admin_user_path(acc, type: 'user'),
+                          method: :delete,
+                          data: { confirm: "削除しますか？" } %>
+            </td>
+          </tr>
+        <% else %>
+          <tr>
+            <td><%= acc.id %></td>
+            <td><%= acc.full_name %></td>
+            <td>管理者</td>
+            <td><%= acc.email %></td>
+            <td><%= acc.phone_number %></td>
+            <td>
+              <%= link_to "詳細", admin_user_path(acc, type: 'admin') %>
+              <%= link_to "編集", edit_admin_user_path(acc, type: 'admin') %>
+              <%= link_to "削除", admin_user_path(acc, type: 'admin'),
+                          method: :delete,
+                          data: { confirm: "削除しますか？" } %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="pagination-container">
+    <%= paginate @accounts %>
+  </div>
+
+  <%= link_to "管理TOPへ戻る", admin_top_path, class: "btn btn-secondary" %>
+</div>

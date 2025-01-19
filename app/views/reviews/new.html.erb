@@ -1,0 +1,20 @@
+<h2>レビュー投稿</h2>
+
+<%= form_for [@item, @review] do |f| %>
+  <div class="star-rating-field">
+    <label>評価 (1～5):</label><br>
+    <% (1..5).each do |star_value| %>
+      <%= f.radio_button :rating, star_value, id: "star#{star_value}" %>
+      <label for="star<%= star_value %>" class="star">★</label>
+    <% end %>
+  </div>
+
+  <div style="margin: 1em 0;">
+    <label>コメント(200文字以内):</label><br>
+    <%= f.text_area :content, rows: 4 %>
+  </div>
+
+  <%= f.submit "投稿", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "一覧に戻る", item_path(@item) %>

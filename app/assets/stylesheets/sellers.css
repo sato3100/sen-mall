@@ -1,0 +1,90 @@
+.seller-detail {
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.seller-detail p {
+  margin: 0.3rem 0;
+}
+
+.seller-detail strong {
+  color: #333;
+}
+
+/* 商品一覧のグリッド */
+.seller-items-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4列固定 */
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+
+/* カード本体 */
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 1rem;
+}
+
+/* ホバー時の演出 */
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 画像 */
+.product-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 0.5rem;
+}
+
+/* 価格・商品名など */
+.product-price {
+  font-weight: bold;
+  color: #d9534f;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.product-name {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+
+.pagination-container {
+  text-align: center;
+  margin: 1em 0;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.seller-register-page h2 {
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+
+.seller-register-page label {
+  display: block;
+  margin-bottom: 0.2em;
+  font-weight: bold;
+}
+
+.btn {
+  margin-top: 0.5em;
+}

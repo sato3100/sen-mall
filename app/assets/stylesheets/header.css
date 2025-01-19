@@ -1,0 +1,84 @@
+/* ヘッダー全体 */
+.header-container {
+  width: 100%;
+  background-color: #232f3e;
+  color: #fff;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.header-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ロゴ */
+.site-logo a {
+  color: #fff;
+  font-size: 1.5em;
+  text-decoration: none;
+}
+
+/* 検索フォーム */
+.header-search {
+  flex: 1;
+  margin: 0 20px;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.search-form select,
+.search-form input[type="number"] {
+  width: 60px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 0.9em;
+  margin-right: 5px;
+}
+
+.search-input {
+  width: 220px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* 検索ボタン */
+.search-button {
+  padding: 6px 12px;
+  background-color: #febd69;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #333;
+  font-weight: bold;
+}
+.search-button:hover {
+  background-color: #fdd37c;
+}
+
+/* ログインやマイページなどのリンク */
+.header-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95em;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+}

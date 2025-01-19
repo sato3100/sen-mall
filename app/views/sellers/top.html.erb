@@ -1,0 +1,9 @@
+<h1>出品者TOP</h1>
+<p>こちらは出品者専用トップページです。</p>
+
+<ul>
+  <li><%= link_to "マイページ", user_path(current_user) %></li>
+  <li><%= link_to "出品商品管理", seller_items_path %></li>
+  <li><%= link_to "注文の管理", seller_orders_path %></li>
+  <li><%= link_to "問い合わせ管理", seller_rooms_path %></li>
+</ul>

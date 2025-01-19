@@ -1,0 +1,50 @@
+<h2>【管理画面】商品編集 (ID:<%= @item.id %>)</h2>
+
+<%= form_for @item, url: admin_item_path(@item), method: :patch, html: { multipart: true } do |f| %>
+  <div>
+    <%= f.label :name, "商品名" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :code, "商品コード" %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div>
+    <%= f.label :price, "価格" %><br>
+    <%= f.number_field :price %>
+  </div>
+  <div>
+    <%= f.label :stock, "在庫" %><br>
+    <%= f.number_field :stock %>
+  </div>
+  <div>
+    <%= f.label :description, "説明" %><br>
+    <%= f.text_area :description, rows: 5 %>
+  </div>
+  <div>
+    <%= f.label :category_id, "カテゴリーID" %><br>
+    <!-- シンプルにID入力、あるいは collection_selectなど -->
+    <%= f.text_field :category_id %>
+  </div>
+
+  <!-- 画像アップロード用 -->
+  <div>
+    <%= f.label :item_picture, "商品画像" %><br>
+    <%= f.file_field :item_picture %>
+  </div>
+
+  <!-- 既存画像を消すチェックボックス -->
+  <% if @item.image_item.attached? %>
+    <div>
+      <%= image_tag @item.image_item.variant(resize: "120x120") %><br>
+      <label>
+        <%= f.check_box :remove_picture %> 画像を削除
+      </label>
+    </div>
+  <% end %>
+
+  <%= f.submit "更新する", class: "btn btn-primary", style: "margin-top:1em;" %>
+<% end %>
+
+<hr>
+<%= link_to "一覧へ戻る", admin_items_path, class: "btn btn-secondary" %>

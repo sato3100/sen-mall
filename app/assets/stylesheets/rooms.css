@@ -1,0 +1,224 @@
+/* rooms/index 用シンプルカードデザイン */
+
+.room-list-container {
+  display: flex;
+  flex-wrap: wrap;  /* 横にカードを並べ、画面幅で折り返し */
+  gap: 1rem;        /* カード間の隙間 */
+  margin-top: 1rem;
+}
+
+.room-card-link {
+  text-decoration: none;  /* リンクの下線を消す */
+  color: inherit;         /* リンク色を継承 */
+  flex: 1 1 250px;        /* 幅250px程度で自動改行する例 */
+  max-width: 300px;
+}
+
+.room-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #fff;
+  transition: box-shadow 0.2s;
+}
+
+.room-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.room-card .chat-user-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.room-card .chat-last-message {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* rooms/show 用シンプルチャットデザイン */
+
+.room-detail-container {
+  max-width: 700px;
+  margin: 1rem auto;   /* 画面中央に寄せる */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1.5rem;
+}
+
+.room-header {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.room-header .room-target-user {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.room-header .room-id,
+.room-header .room-subject {
+  color: #666;
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.room-messages {
+  margin-bottom: 1rem;
+  max-height: 300px; /* スクロールしたい場合の例 */
+  overflow-y: auto;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.message-item {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  padding: 0.5rem;
+  border-radius: 4px;
+  max-width: 80%;
+}
+
+.my-message {
+  background-color: #e3f2fd;  /* 自分側の吹き出し色 */
+  margin-left: auto;          /* 右寄せ */
+  text-align: left;           /* 文面は左揃え */
+}
+
+.other-message {
+  background-color: #f5f5f5;   /* 相手側の吹き出し色 */
+  margin-right: auto;         /* 左寄せ */
+  text-align: left;
+}
+
+.message-form-container {
+  margin-top: 1rem;
+}
+
+.message-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.message-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-form-label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.message-form-textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+.message-form-submit {
+  align-self: flex-end; /* 右下に配置する場合の例 */
+}
+
+  .room-new-container {
+    max-width: 600px;
+    margin: 2rem auto;            /* 画面中央に配置 */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  }
+  
+  .room-new-header {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .room-new-subtitle {
+    margin-bottom: 1rem;
+    color: #666;
+    font-size: 0.95rem;
+  }
+  
+  .room-new-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .room-new-form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .room-new-form-group label {
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+  }
+  
+  .room-new-form-group input[type="text"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  
+  .room-new-form .btn-submit {
+    align-self: flex-start; /* ボタンの位置調整 */
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+
+/* rooms/new 用 - シンプルフォームデザイン */
+.room-new-container {
+  max-width: 600px;
+  margin: 1rem auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1.5rem;
+}
+
+.room-new-header {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.room-new-target-user {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.room-new-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.room-new-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.room-new-form-label {
+  margin-bottom: 0.25rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.room-new-form-submit {
+  text-align: right;
+}

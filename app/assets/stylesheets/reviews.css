@@ -1,0 +1,31 @@
+/* シンプルな星のラジオボタンを左→右に並べる例 */
+.star-rating-field {
+  display: inline-block;
+  margin-top: 1em;
+
+  /* ラジオボタンを非表示 */
+  input[type="radio"] {
+    display: none;
+  }
+
+  .star {
+    font-size: 20px;
+    color: #ccc;
+    cursor: pointer;
+    margin-right: 3px;
+  }
+
+  input[type="radio"]:checked + label.star {
+    color: rgb(27, 25, 25);
+  }
+}
+
+
+.pagination-container {
+  text-align: center;
+  margin: 1em 0;
+}
+
+.pagination {
+  display: inline-block;
+}

@@ -1,0 +1,26 @@
+<h2>商品一覧</h2>
+
+<% if @items.empty? %>
+  <p>商品がまだ登録されていません、または見つかりませんでした。</p>
+<% else %>
+  <div class="product-grid">
+    <% @items.each do |item| %>
+      <div class="product-card">
+        <% if item.image_item.attached? %>
+          <%= image_tag item.image_item, alt: item.name, class: "product-img" %>
+        <% else %>
+          <%= image_tag "no_image.jpg", alt: "画像なし", class: "product-img" %>
+        <% end %>
+
+        <p class="product-price">¥<%= item.price %></p>
+        <h4 class="product-name">
+          <%= link_to item.name, item_path(item) %>
+        </h4>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="pagination-container">
+    <%= paginate @items %>
+  </div>
+<% end %>

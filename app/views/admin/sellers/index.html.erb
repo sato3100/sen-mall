@@ -1,0 +1,32 @@
+<h2>【管理画面】出品者一覧</h2>
+
+<table border="1" style="margin-top:1em;">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>氏名</th>
+      <th>ビジネス名</th>
+      <th>メールアドレス</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sellers.each do |s| %>
+      <tr>
+        <td><%= s.id %></td>
+        <td><%= s.full_name %></td>
+        <td><%= s.business_name %></td>
+        <td><%= s.email %></td>
+        <td>
+          <%= link_to "詳細", admin_seller_path(s) %> |
+          <%= link_to "編集", edit_admin_seller_path(s) %> |
+          <%= link_to "削除", admin_seller_path(s),
+                      method: :delete,
+                      data: { confirm: "本当に削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "管理トップへ戻る", admin_sellers_path, class: "btn btn-secondary" %>

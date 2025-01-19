@@ -1,16 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Minizon</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title><%= "sen mall" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application" %>
-    <%= javascript_include_tag "application", defer: true %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div id="container">
+      <header>
+        <%= render "shared/header" %>
+      </header>
+
+      <main>
+        <!-- エラーメッセージ -->
+        <% if flash.alert.is_a?(Array) && flash.alert.any? %>
+          <div class="alert">
+            <ul>
+              <% flash.alert.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% elsif flash.alert %>
+          <div class="alert"><%= flash.alert %></div>
+        <% end %>
+
+        <!-- 成功(通常)メッセージ -->
+        <% if flash.notice %>
+          <div class="notice"><%= flash.notice %></div>
+        <% end %>
+
+        <%= yield %>
+      </main>
+
+      <footer>
+        <%= render "shared/footer" %>
+      </footer>
+    </div>
   </body>
 </html>

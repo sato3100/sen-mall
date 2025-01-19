@@ -1,0 +1,111 @@
+<div class="admin-container">
+  <h2>【管理画面】問い合わせ一覧</h2>
+
+  <table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounts.each do |acc| %>
+      <tr>
+        <td><%= acc.id %></td>
+        <td><%= acc.full_name %></td>
+        <td>
+          <!-- ここで問い合わせ作成リンク -->
+          <%= link_to "このユーザーに問い合わせ作成",
+                      new_admin_room_path(user_id: acc.id),
+                      class: "btn btn-info" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+  <% if @rooms.any? %>
+        <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ルームID</th>
+          <th>件名</th>
+          <th>ユーザー</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rooms.each do |room| %>
+          <tr>
+            <td><%= room.id %></td>
+            <td><%= room.subject.presence || "件名なし" %></td>
+            <td>
+              <% room.entries.each do |entry| %>
+                <% if entry.user.present? %>
+                  <%= link_to entry.user.full_name, admin_user_path(entry.user) %><br>
+                <% elsif entry.admin.present? %>
+                  管理者<br>
+                <% else %>
+                  (ユーザー不明)<br>
+                <% end %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to "詳細", admin_room_path(room) %> |
+              <%= link_to "編集", edit_admin_room_path(room) %> |
+              <%= link_to "削除", admin_room_path(room),
+                          method: :delete,
+                          data: { confirm: "本当に削除しますか？" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>問い合わせは存在しません。</p>
+  <% end %>
+</div>
+
+
+<div class="admin-container">
+  <h2>通報一覧</h2>
+
+  <% if @reports.any? %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>通報者</th>
+          <th>通報された人</th>
+          <th>対象(商品/レビュー)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @reports.each do |report| %>
+          <tr>
+            <td><%= report.id %></td>
+            <td><%= report.reporter&.full_name %></td>
+            <td><%= report.reported_user&.full_name %></td>
+            <td>
+              <% if report.item_id %>
+                商品: <%= link_to report.item.name, admin_item_path(report.item) %>
+              <% elsif report.review_id %>
+                レビュー: <%= report.review.content %>
+              <% else %>
+                不明
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>通報はありません。</p>
+  <% end %>
+</div>
+
+
+<hr>
+<%= link_to "管理トップへ戻る", admin_top_path, class: "btn btn-secondary" %>

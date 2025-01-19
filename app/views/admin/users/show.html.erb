@@ -1,0 +1,41 @@
+<% if params[:type] == 'admin' && @admin %>
+  <h2>【管理画面】管理者詳細 (ID: <%= @admin.id %>)</h2>
+  <p>フルネーム: <%= @admin.full_name %></p>
+  <p>電話番号: <%= @admin.phone_number %></p>
+  <p>メールアドレス: <%= @admin.email %></p>
+  <p>住所: <%= @admin.address %></p>
+  <hr>
+  <%= link_to "編集", edit_admin_user_path(@admin, type: 'admin'), class: "btn btn-primary" %>
+  <br>
+  <%= link_to "一覧へ戻る", admin_users_path, class: "btn btn-secondary" %>
+
+<% elsif @user && @user.status == 2 %>
+  <h2>【管理画面】出品者詳細 (ID: <%= @user.id %>)</h2>
+  <p>フルネーム: <%= @user.full_name %></p>
+  <p>電話番号: <%= @user.phone_number %></p>
+  <p>メールアドレス: <%= @user.email %></p>
+  <p>住所: <%= @user.address %></p>
+  <hr>
+  <%= link_to "編集", edit_admin_user_path(@user, type: 'user'), class: "btn btn-primary" %>
+  <%= link_to "レビュー一覧", user_reviews_path(@user), class: "btn btn-info" %>
+  <br>
+  <%= link_to "一覧へ戻る", admin_users_path, class: "btn btn-secondary" %>
+
+<% elsif @user && @user.status == 1 %>
+  <h2>【管理画面】購入者詳細 (ID: <%= @user.id %>)</h2>
+  <p>フルネーム: <%= @user.full_name %></p>
+  <p>電話番号: <%= @user.phone_number %></p>
+  <p>メールアドレス: <%= @user.email %></p>
+  <p>住所: <%= @user.address %></p>
+  <hr>
+  <%= link_to "編集", edit_admin_user_path(@user, type: 'user'), class: "btn btn-primary" %>
+  <%= link_to "レビュー一覧", user_reviews_path(@user), class: "btn btn-info" %>
+  <%= link_to "注文履歴", admin_orders_path(user_id: @user.id), class: "btn btn-info" %>
+  <%= link_to "アカウント削除",
+              admin_user_path(@user, type: 'user'),
+              method: :delete,
+              data: { confirm: "このユーザーアカウントを削除しますか？" },
+              class: "btn btn-danger" %>
+  <br>
+  <%= link_to "一覧へ戻る", admin_users_path, class: "btn btn-secondary" %>
+<% end %>

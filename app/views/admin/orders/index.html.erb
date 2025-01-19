@@ -1,0 +1,57 @@
+<div class="admin-container">
+  <h2>【管理画面】注文一覧</h2>
+
+  <% if @orders.any? %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>注文ID</th>
+          <th>購入者</th>
+          <th>合計金額</th>
+          <th>配送状況</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.id %></td>
+            <td>
+              <% if order.user.present? %>
+                <%= link_to order.user.full_name, admin_user_path(order.user.id) %>
+              <% else %>
+                (ユーザー不明)
+              <% end %>
+            </td>
+            <td>¥<%= order.total_price %></td>
+            <td>
+              <% delivery_statuses = order.order_items.pluck(:delivery).uniq %>
+              <% if delivery_statuses.size == 1 %>
+                <%= OrderItem::DELIVERY_STATUSES[delivery_statuses.first] %>
+              <% else %>
+                複数の配送状況
+              <% end %>
+            </td>
+            <td>
+              <%= link_to "詳細", admin_order_path(order) %> |
+              <%= link_to "編集", edit_admin_order_path(order) %> |
+              <%= link_to "削除", admin_order_path(order),
+                          method: :delete,
+                          data: { confirm: "この注文を本当に削除しますか？" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>注文はありません</p>
+  <% end %>
+
+  <% if @user %>
+    <hr>
+    <%= link_to "アカウント詳細へ戻る", admin_user_path(@user.id), class: "btn btn-secondary" %>
+  <% else %>
+    <hr>
+    <%= link_to "管理者TOPへ戻る", admin_top_path, class: "btn btn-secondary" %>
+  <% end %>
+</div>

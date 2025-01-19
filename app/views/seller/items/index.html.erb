@@ -1,0 +1,28 @@
+<h2>出品商品管理</h2>
+<p><%= link_to "商品を登録する", new_seller_item_path %></p>
+
+<div class="product-grid">
+  <% @items.each do |item| %>
+    <div class="product-card">
+      <% if item.image_item.attached? %>
+        <%= image_tag item.image_item, alt: item.name, class: "product-img" %>
+      <% else %>
+        <%= image_tag "no_image.jpg", alt: "画像なし", class: "product-img" %>
+      <% end %>
+
+      <h4 class="product-name">
+        <%= link_to item.name, item_path(item) %>
+      </h4>
+      <p class="product-stock">在庫: <%= item.stock %></p>
+      <div class="product-actions">
+        <%= link_to "編集", edit_seller_item_path(item) %>
+        <%= link_to "取り消し", seller_item_path(item),
+                    method: :delete,
+                    data: { confirm: "削除しますか？" } %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="pagination-container">
+  <%= paginate @items %>
+</div>

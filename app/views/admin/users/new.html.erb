@@ -1,0 +1,38 @@
+<h2>【管理画面】管理者を追加</h2>
+
+<%= form_for @admin, url: admin_users_path do |f| %>
+  <div>
+    <%= f.label :family_name, "性" %><br>
+    <%= f.text_field :family_name %>
+  </div>
+
+  <div>
+    <%= f.label :given_name, "名" %><br>
+    <%= f.text_field :given_name %>
+  </div>
+
+  <div>
+    <%= f.label :email, "メールアドレス" %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :phone_number, "電話番号" %><br>
+    <%= f.text_field :phone_number %>
+  </div>
+
+  <div>
+    <%= f.label :address, "住所" %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :password, "パスワード" %><br>
+    <%= f.password_field :password %>
+  </div>
+
+  <%= f.submit "管理者を登録", class: "btn btn-primary" %>
+<% end %>
+
+<hr>
+<%= link_to "一覧へ戻る", admin_users_path, class: "btn btn-secondary" %>

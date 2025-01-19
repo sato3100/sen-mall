@@ -1,0 +1,53 @@
+<div class="header-container">
+  <div class="header-top-row">
+    <h1 class="site-logo">
+      <%= link_to "sen mall", root_path %>
+    </h1>
+
+    <!-- 検索フォーム -->
+    <div class="header-search">
+      <%= form_with url: items_path, method: :get, local: true, class: "search-form" do %>
+        カテゴリ:<%= select_tag :category,
+              options_for_select(Category.pluck(:category_name), params[:category]),
+              include_blank: "選択しない" %>
+        価格(最小):<%= number_field_tag :min_price, params[:min_price], min: 1 %>
+        価格(最大):<%= number_field_tag :max_price, params[:max_price], min: 1 %>
+        <%= text_field_tag :word, params[:word], placeholder: "商品名検索", class: "search-input" %>
+        <%= submit_tag "検索", class: "search-button" %>
+      <% end %>
+    </div>
+
+    <!-- ログイン -->
+    <div class="header-links">
+      <% if current_user && current_user.status == 2 %>
+        <%= current_user.full_name %> さん
+        <%= link_to "出品者top", seller_top_path, class: "header-link" %>
+        <%= link_to "マイページ", user_path(current_user), class: "header-link" %>
+        <%= link_to "出品商品管理", seller_items_path, class: "header-link" %>
+        <%= link_to "問い合わせ管理", seller_rooms_path, class: "header-link" %>
+        <%= link_to "注文の管理", seller_orders_path, class: "header-link" %>
+        <%= link_to "ログアウト", session_path, method: :delete, class: "header-link" %>
+      <% elsif current_user && current_user.status == 1 %>
+        <%= current_user.full_name %> さん
+        <%= link_to "マイページ", user_path(current_user), class: "header-link" %>
+        <%= link_to "注文履歴", orders_path, class: "header-link" %>
+        <%= link_to "カート", cart_path, class: "header-link" %>
+        <%= link_to "ログアウト", session_path, method: :delete, class: "header-link" %>
+        <% elsif current_admin %>
+        <!-- 管理者 -->
+        <%= current_admin.full_name %> さん
+        <%= link_to "管理者top", admin_top_path, class: "header-link" %>
+        <%= link_to "注文管理", admin_orders_path, class: "header-link" %>
+        <%= link_to "問い合わせ管理", admin_rooms_path, class: "header-link" %>
+        <%= link_to "アカウント管理", admin_users_path, class: "header-link" %>
+        <%= link_to "ログアウト", session_path, method: :delete, class: "header-link" %>
+      <% else %>
+        <!-- 未ログイン -->
+        ゲスト さん
+        <%= link_to "ログイン", new_session_path, class: "header-link" %>
+        <%= link_to "購入者登録", new_accounts_path, class: "header-link" %>
+        <%= link_to "出品者登録", new_seller_path, class: "header-link" %>
+      <% end %>
+    </div>
+  </div>
+</div>

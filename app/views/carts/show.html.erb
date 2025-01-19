@@ -1,0 +1,39 @@
+<h2>カート</h2>
+
+<% if @cart.cart_items.blank? %>
+  <p>カートに商品がありません。</p>
+  <%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>
+<% else %>
+  <table>
+    <tr>
+      <th>商品名</th>
+      <th>商品画像</th>
+      <th>数量</th>
+      <th>価格</th>
+      <th>操作</th>
+    </tr>
+    <% @cart.cart_items.includes(:item).each do |cart_item| %>
+      <tr>
+        <td><%= cart_item.item.name %></td>
+        <td>
+          <% if cart_item.item.image_item.attached? %>
+            <%= image_tag cart_item.item.image_item, alt: cart_item.item.name, width:80 %>
+          <% else %>
+            <%= image_tag "no_image.jpg", alt: "画像なし", width:80 %>
+          <% end %>
+        </td>
+        <td><%= cart_item.quantity %></td>
+        <td>¥<%= cart_item.item.price * cart_item.quantity %></td>
+        <td>
+          <%= link_to "削除", cart_item_path(cart_item),
+                      method: :delete,
+                      data: { confirm: "削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <% if @cart.cart_items.any? %>
+  <%= link_to "注文確認へ進む", confirm_orders_path, class: "btn btn-primary" %>
+<% end %>
+<% end %>

@@ -1,0 +1,26 @@
+<h2>問い合わせ一覧</h2>
+
+<%= link_to "管理者への問い合わせ", new_room_path(admin_inquiry: "true"), class: "btn btn-primary" %>
+
+<div class="room-list-container">
+    <% @another_entries.each do |entry| %>
+    <%= link_to room_path(entry.room), class: "room-card-link" do %>
+        <div class="room-card">
+        <div class="chat-user-name">
+            相手:
+            <% if entry.user.present? %>
+                <%= entry.user.full_name %>
+            <% elsif entry.admin.present? %>
+                <%= "管理者" %>
+            <% else %>
+
+            <% end %>
+            </div>
+            <div class="chat-last-message">
+            <%= entry.room.subject || "件名が未設定です" %>
+        </div>
+    </div>
+    <% end %>
+    <% end %>
+</div>
+

@@ -1,0 +1,17 @@
+<h2>【管理画面】商品詳細 (ID:<%= @item.id %>)</h2>
+
+<p>商品名: <%= @item.name %></p>
+<p>コード: <%= @item.code %></p>
+<p>価格: <%= @item.price %></p>
+<p>在庫: <%= @item.stock %></p>
+<p>説明: <%= @item.description %></p>
+<p>カテゴリーID: <%= @item.category_id %></p>
+
+<% if @item.image_item.attached? %>
+  <p>商品画像:</p>
+  <%= image_tag @item.image_item, alt: @item.name, width:200 %>
+<% end %>
+
+<hr>
+<%= link_to "編集", edit_admin_item_path(@item), class: "btn btn-primary" %> |
+<%= link_to "注文一覧へ戻る", admin_orders_path, class: "btn btn-secondary" %>

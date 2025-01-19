@@ -1,0 +1,26 @@
+<h2>レビュー編集</h2>
+
+<%= form_for [@item, @review], url: item_review_path(@item, @review), method: :patch do |f| %>
+  <div>
+    <label>対象商品:</label> <%= @item.name %>
+  </div>
+
+  <div class="star-rating-field">
+    <label>評価 (1~5):</label><br>
+    <% (1..5).each do |star_value| %>
+      <%= f.radio_button :rating, star_value,
+          id: "star#{star_value}",
+          checked: (@review.rating == star_value) %>
+      <label for="star<%= star_value %>" class="star">★</label>
+    <% end %>
+  </div>
+
+  <div style="margin: 1em 0;">
+    <label>内容(200字以内):</label><br>
+    <%= f.text_area :content, rows: 4 %>
+  </div>
+
+  <%= f.submit "更新", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "マイページへ戻る", user_path(current_user), class: "btn btn-secondary" %>

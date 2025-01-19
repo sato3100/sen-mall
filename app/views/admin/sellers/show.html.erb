@@ -1,0 +1,12 @@
+<h2>【管理画面】出品者詳細 (ID:<%= @seller.id %>)</h2>
+
+<p>氏名: <%= @seller.full_name %></p>
+<p>ビジネス名: <%= @seller.business_name %></p>
+<p>メールアドレス: <%= @seller.email %></p>
+<p>住所: <%= @seller.address %></p>
+<p>電話番号: <%= @seller.phone_number %></p>
+
+<hr>
+<%= link_to "編集", edit_admin_seller_path(@seller), class: "btn btn-primary" %> |
+<%= link_to "削除", admin_seller_path(@seller), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %> |
+<%= link_to "一覧へ戻る", admin_sellers_path, class: "btn btn-secondary" %>

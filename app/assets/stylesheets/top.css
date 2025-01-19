@@ -1,0 +1,74 @@
+.product-grid {
+  display: grid;
+  /* 4列固定で表示 */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 1.5rem; /* カード同士の隙間 */
+  max-width: 1200px; 
+  margin: 2rem auto; 
+  padding: 0 1rem;
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 1rem;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.product-card img.product-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 0.75rem;
+  /* object-fit: cover; // 高さ固定にする場合に使用 */
+}
+
+.product-card h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.product-card p.price {
+  font-weight: bold;
+  color: #d9534f; 
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.product-card p {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  color: #666;
+}
+
+.product-card a.btn {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #f0ad4e;
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.product-card a.btn:hover {
+  background-color: #ec971f;
+}
+
+.pagination-container {
+  text-align: center;
+  margin: 1em 0;
+}
+
+.pagination {
+  display: inline-block;
+}

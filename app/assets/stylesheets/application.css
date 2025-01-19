@@ -11,5 +11,70 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
+ *= require accounts
+ *= require sessions
  *= require_self
+ *= require top
+ *= require items
+ *= require sellers
+ *= require rooms
+ *= require seller/items
+ *= require reviews
+ *= require admin/items
+ *= require orders
+ *= require admin/orders
+ *= require admin/items
+ *= require admin/users
+ *= require admin/categories
+ *= require admin/rooms
  */
+
+  body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
+#container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+footer {
+  background-color: #232f3e;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+/* 成功 */
+.notice {
+  background: #dff0d8;       /* 薄緑 */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #3c763d; /* 緑色枠 */
+  color: #3c763d;            /* 文字色も緑 */
+}
+
+/* エラーメッセージ (薄赤) */
+.alert {
+  background: #f2dede;       /* 薄赤 */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #a94442; /* 赤色枠 */
+  color: #a94442;            /* 文字色も赤 */
+}
+
+/* 画像 */
+.product-img {
+  width: 168px;
+  height: 168px;
+  object-fit: cover;
+}

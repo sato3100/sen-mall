@@ -1,0 +1,119 @@
+/* 親要素: 4列固定で並べたい場合は repeat(4, 1fr); */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4列固定 */
+  gap: 1rem; /* カード間の余白 */
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* カード要素 */
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 1rem;
+}
+
+/* ホバー時にちょっと浮く */
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 商品画像 */
+.product-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 0.75rem;
+}
+
+/* 商品名など */
+.product-name {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+.product-stock {
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+}
+
+/* ボタン等 */
+.product-actions a {
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 0.25rem;
+}
+.product-actions a:hover {
+  text-decoration: underline;
+}
+
+/* 画面全体に影響しないよう、.seller-item-form などのクラスで囲む */
+.seller-item-form {
+  width: 400px;            /* 幅を少し固定して中央寄せ */
+  margin: 20px auto;       /* 上下に20px、左右autoで中央寄せ */
+  padding: 1em;
+  border: 1px solid #ccc;  /* ほんの少し枠線をつける */
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+/* タイトル */
+.seller-item-form h2 {
+  margin-top: 0;
+  margin-bottom: 1em;
+  font-size: 1.2em;
+}
+
+/* ラベルと入力欄の配置を少し整える */
+.seller-item-form div {
+  margin-bottom: 1em;
+}
+
+.seller-item-form label {
+  display: block;
+  margin-bottom: 0.3em;
+  font-weight: bold;
+  font-size: 0.95em;
+}
+
+/* テキスト入力、数値入力、ファイル、セレクトなどのスタイル */
+.seller-item-form input[type="text"],
+.seller-item-form input[type="number"],
+.seller-item-form input[type="file"],
+.seller-item-form textarea,
+.seller-item-form select {
+  width: 100%;
+  max-width: 100%;  /* 狭い画面でもはみ出しにくくする */
+  padding: 0.4em;
+  box-sizing: border-box;
+  font-size: 0.95em;
+}
+
+/* 新品チェックボックスは横並びでもOKの場合 */
+.seller-item-form .checkbox-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.seller-item-form .checkbox-wrapper label {
+  margin: 0 0.5em 0 0;
+  font-weight: normal;
+}
+
+/* 送信ボタン */
+.seller-item-form .btn-submit {
+  padding: 0.5em 1em;
+  cursor: pointer;
+  background: #eee;   /* 控えめに色を付けたい場合 */
+  border: 1px solid #aaa;
+}
+
+
+
