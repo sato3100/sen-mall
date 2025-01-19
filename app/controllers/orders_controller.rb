@@ -30,20 +30,31 @@ class OrdersController < ApplicationController
       redirect_to cart_path, alert: "カートが空です。" and return
     end
 
-    order = current_user.orders.create(
-      total_price: total_price(cart)
-    )
-
+    # カート内のアイテムの在庫を再チェックする!
     cart.cart_items.each do |ci|
+      # 在庫不足が見つかったら、注文を中断する
+      if ci.quantity > ci.item.stock
+        redirect_to cart_path, alert: "在庫が足りない商品があり、注文できませんでした。" and return
+      end
+    end
+
+    # 注文レコードを作成
+    order = current_user.orders.create(total_price: total_price(cart))
+
+    # カートアイテムをOrderItemに移す
+    cart.cart_items.each do |ci|
+      # 注文アイテムを保存
       order_item = order.order_items.create(
         item_id: ci.item_id,
         quantity: ci.quantity,
         price: ci.item.price,
         delivery: 0   # 0=未配送
       )
-      ci.item.update(stock: ci.item.stock - ci.quantity)
+      # 在庫を減らす（在庫数が反映される）
+      ci.item.update!(stock: ci.item.stock - ci.quantity)
     end
 
+    # 注文後はカートを空にする
     cart.cart_items.destroy_all
     redirect_to order_path(order), notice: "注文が完了しました。"
   end

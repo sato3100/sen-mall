@@ -49,6 +49,7 @@ ja:
       less_than_or_equal_to: "は%{count}以下で入力してください"
       less_than: "は%{count}より小さい値を入力してください"
       not_a_number: "は数値で入力してください"
+      record_invalid: "バリデーションに失敗しました: %{errors}"
 
     models:
       user:
