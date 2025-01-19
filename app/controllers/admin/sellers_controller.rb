@@ -28,7 +28,12 @@ class Admin::SellersController < ApplicationController
   end
 
   def destroy
-    @seller = User.find(params[:id])
+    @seller = User.find_by(id: params[:id])
+    unless @seller
+      redirect_to root_path, alert: "既に削除されたアカウントです。"
+      return
+    end
+
     if @seller.status != 2
       redirect_to admin_sellers_path, alert: "出品者ではありません"
       return

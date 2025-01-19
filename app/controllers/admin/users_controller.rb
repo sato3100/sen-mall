@@ -85,11 +85,19 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     if params[:type] == 'admin'
-      @admin = Admin.find(params[:id])
+      @admin = Admin.find_by(id: params[:id])
+      unless @admin
+        redirect_to admin_users_path, alert: "指定された管理者は既に存在しません。"
+        return
+      end
       @admin.destroy
       redirect_to admin_users_path, notice: "管理者を削除しました。"
     else
-      @user = User.find(params[:id])
+      @user = User.find_by(id: params[:id])
+      unless @user
+        redirect_to admin_users_path, alert: "指定されたユーザーは既に存在しません。"
+        return
+      end
       if @user.status == 2
         item_ids = @user.items.ids
         delivering = OrderItem.where(item_id: item_ids, delivery: 1).exists?
