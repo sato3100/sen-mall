@@ -29,14 +29,14 @@ class CartItemsController < ApplicationController
         redirect_to item_path(item), alert: "選択された数量は在庫数を超えています。" and return
       else
         # 在庫以内なら更新
-        cart_item.update(quantity: new_quantity)
+        cart_item.update(quantity: new_quantity, price: item.price)
       end
     else
       # カートに無い商品は新規作成
       if quantity > item.stock
         redirect_to item_path(item), alert: "選択された数量は在庫数を超えています。" and return
       else
-        cart.cart_items.create(item: item, quantity: quantity)
+        cart.cart_items.create(item: item, quantity: quantity, price: item.price)
       end
     end
 
@@ -58,7 +58,7 @@ class CartItemsController < ApplicationController
     elsif new_quantity > cart_item.item.stock
       redirect_to cart_path, alert: "選択された数量は在庫数を超えています。" and return
     else
-      cart_item.update(quantity: new_quantity)
+      cart_item.update(quantity: new_quantity, price: cart_item.item.price)
       redirect_to cart_path, notice: "カートを更新しました。"
     end
   end

@@ -38,6 +38,13 @@ class OrdersController < ApplicationController
       end
     end
 
+    cart.cart_items.each do |ci|
+      if ci.price != ci.item.price
+        # 価格が変更されたら注文をやり直し
+        redirect_to cart_path, alert: "商品の価格が変更されたため、注文できませんでした。注文する場合はカートを空にして再度商品を入れて下さい。" and return
+      end
+    end
+
     # 注文レコードを作成
     order = current_user.orders.create(total_price: total_price(cart))
 
