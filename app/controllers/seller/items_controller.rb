@@ -52,11 +52,6 @@ class Seller::ItemsController < ApplicationController
       return
     end
 
-    if @item.cart_items.exists? || @item.favorite_items.exists?
-      redirect_to seller_items_path, alert: "この商品はカートやお気に入りに残っているため削除できません..."
-      return
-    end
-
     @item.destroy
     redirect_to seller_items_path, notice: "出品を取り消しました"
   end
