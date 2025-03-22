@@ -58,4 +58,25 @@ class ApplicationController < ActionController::Base
     session[:cart_id] = cart.id
     cart
   end
+
+  private def rescue_internal_server_error(exception)
+    logger.error(exception.message)
+    logger.error(exception.backtrace.join("\n"))
+    render file: Rails.root.join("public", "500.html"), status: :internal_server_error, layout: false
+  end
+
+  private def rescue_not_found(exception)
+    logger.error(exception.message)
+    render file: Rails.root.join("public", "404.html"), status: :not_found, layout: false
+  end
+
+  private def rescue_bad_request(exception)
+    logger.error(exception.message)
+    render file: Rails.root.join("public", "400.html"), status: :bad_request, layout: false
+  end
+
+  private def rescue_forbidden(exception)
+    logger.error(exception.message)
+    render file: Rails.root.join("public", "403.html"), status: :forbidden, layout: false
+  end
 end
