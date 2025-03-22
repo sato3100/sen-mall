@@ -72,4 +72,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # herokuデプロイ時に、ホスト認証でエラーが出たため、以下を追記
+  config.hosts << "sen-mall-d58fe3b87b21.herokuapp.com"
 end

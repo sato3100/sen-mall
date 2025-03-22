@@ -156,6 +156,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.17.2-x86_64-linux)
       racc (~> 1.4)
+    pg (1.5.9)
     psych (5.2.1)
       date
       stringio
@@ -254,6 +255,7 @@ DEPENDENCIES
   kaminari
   kaminari-i18n
   mini_magick (~> 4.8)
+  pg (~> 1.2)
   puma (~> 5.0)
   rails (~> 7.0.4)
   rails-erd
