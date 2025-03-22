@@ -39,6 +39,8 @@ gem "email_validator", "~> 1.6"
 gem "kaminari"
 gem "kaminari-i18n"
 
+gem 'webpacker', '~> 5.0'
+
 # Generates ER-diagrams using Graphviz, a visualization library
 gem 'rails-erd'
 
