@@ -18,8 +18,8 @@ group :development do
 end
 
 group :production do
-  # herokuではpostgresqlを使用するため、production環境では変更する。
-  gem "pg", "~> 1.2"
+  # renderではpostgresqlを使用するため、production環境では変更する。
+  gem "pg", "~> 1.4"
 end
 
 # Use the Puma web server [https://github.com/puma/puma]
