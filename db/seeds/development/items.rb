@@ -87,6 +87,7 @@ items.each do |item_data|
     item.new = true
     item.status = 0
     item.price = item_data[:price]
+    sleep(0.1)  # 100ミリ秒待機
   end
 
   filename = item_data[:image] # 各商品に対応するファイル名

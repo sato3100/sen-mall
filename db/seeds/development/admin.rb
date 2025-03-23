@@ -1,4 +1,4 @@
-Admin.create!([
+admin_data = [
 {
     full_name: "アドミン ユーザー",
     family_name: "アドミン",
@@ -19,6 +19,15 @@ Admin.create!([
     address:     "神奈川県川崎市多摩区東三田２丁目１−１",
     phone_number: "09012345678",
 }
-])
+]
 
-puts "Admins created!"
+admin_data.each do |admin_attrs|
+    admin = Admin.find_or_initialize_by(email: admin_attrs[:email])
+    admin.assign_attributes(admin_attrs)
+    if admin.new_record?
+        admin.save!
+        puts "Admin #{admin.email} created!"
+    else
+        puts "Admin #{admin.email} already exists. Skipping creation."
+    end
+end
